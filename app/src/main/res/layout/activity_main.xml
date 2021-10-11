@@ -27,7 +27,7 @@
         android:paddingRight="80sp">
 
         <EditText
-            android:id="@+id/editTextTextPersonName"
+            android:id="@+id/editId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -35,7 +35,7 @@
             android:inputType="textPersonName"/>
 
         <EditText
-            android:id="@+id/editTextTextPassword"
+            android:id="@+id/editPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"

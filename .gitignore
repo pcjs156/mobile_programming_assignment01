@@ -234,7 +234,7 @@ Thumbs.db
 .classpath
 .project
 .cproject
-.settings/
+.com.example.assignment01.settings/
 
 # Mobile Tools for Java (J2ME)
 

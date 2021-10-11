@@ -32,6 +32,7 @@
         </ScrollView>
 
         <RadioGroup
+            android:id="@+id/TCRadioGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
@@ -43,7 +44,7 @@
                 android:text="동의" />
 
             <RadioButton
-                android:id="@+id/TC_accept"
+                android:id="@+id/TCAccept"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -53,7 +54,7 @@
                 android:text="거절" />
 
             <RadioButton
-                android:id="@+id/TC_decline"
+                android:id="@+id/TCDecline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true" />
@@ -79,7 +80,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/id_edit"
+                android:id="@+id/idEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
@@ -87,7 +88,7 @@
                 android:inputType="text" />
 
             <Button
-                android:id="@+id/id_check"
+                android:id="@+id/idCheckBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -100,7 +101,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/password_edit"
+                android:id="@+id/passwordEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
@@ -108,11 +109,10 @@
                 android:inputType="textPassword" />
 
             <Button
-                android:id="@+id/password_check"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="확인" />
+                android:visibility="invisible" />
         </LinearLayout>
 
         <LinearLayout
@@ -121,7 +121,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/password_again"
+                android:id="@+id/passwordAgainEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
@@ -129,10 +129,11 @@
                 android:inputType="textPassword" />
 
             <Button
+                android:id="@+id/passwordCheckBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:visibility="invisible" />
+                android:text="확인" />
         </LinearLayout>
     </LinearLayout>
 
@@ -151,20 +152,20 @@
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/name_edit"
+            android:id="@+id/nameEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Name" />
 
         <EditText
-            android:id="@+id/tel_edit"
+            android:id="@+id/telEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Tel"
             android:inputType="phone" />
 
         <EditText
-            android:id="@+id/address_edit"
+            android:id="@+id/addressEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Address" />
