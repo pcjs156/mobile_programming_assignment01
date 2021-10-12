@@ -85,6 +85,9 @@ public class MainActivity extends ActivityWithUserInfoView {
                         Toast.makeText(getApplicationContext(), "ID와 비밀번호를 확인해 주세요.", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(), ProductManagementActivity.class);
+                        intent.putExtra("user", loggedUser);
+                        startActivity(intent);
                     }
                 }
             }
