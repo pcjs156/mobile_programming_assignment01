@@ -1,6 +1,7 @@
 package com.example.assignment01;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
@@ -21,6 +22,8 @@ import static com.example.assignment01.settings.Constant.dbVersion;
 import com.example.assignment01.parcelable.User;
 
 public class MainActivity extends ActivityWithUserInfoView {
+    private static final String USER_INFO_PREFERENCE = "com.example.assignment01.USER_INFO_PREFERENCE";
+
     ActivityResultLauncher<Intent> launcher;
 
     Button signUpBtn;
@@ -42,17 +45,19 @@ public class MainActivity extends ActivityWithUserInfoView {
                     @Override
                     public void onActivityResult(ActivityResult result) {
                         if (result.getResultCode() == RESULT_OK) {
-                            Toast.makeText(getApplicationContext(), "회원가입이 완료되었습니다.", Toast.LENGTH_LONG).show();
-
                             Intent intent = result.getData();
                             Bundle extras = intent.getExtras();
                             User user = intent.getParcelableExtra("user");
 
-                            editId.setText(user.getId());
-                            editPassword.setText(user.getPw());
+                            updateLoginInfo(user.getId(), user.getPw());
+                            fillLoginInfo();
+
+                            Toast.makeText(getApplicationContext(), "회원가입이 완료되었습니다.", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
+
+        fillLoginInfo();
     }
 
     private void initializeComponents() {
@@ -85,6 +90,9 @@ public class MainActivity extends ActivityWithUserInfoView {
                         Toast.makeText(getApplicationContext(), "ID와 비밀번호를 확인해 주세요.", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_SHORT).show();
+
+                        updateLoginInfo(loggedUser.getId(), loggedUser.getPw());
+
                         Intent intent = new Intent(getApplicationContext(), ProductManagementActivity.class);
                         intent.putExtra("user", loggedUser);
                         startActivity(intent);
@@ -92,5 +100,23 @@ public class MainActivity extends ActivityWithUserInfoView {
                 }
             }
         });
+    }
+
+    private void fillLoginInfo() {
+        SharedPreferences loginInfoPref = getSharedPreferences(USER_INFO_PREFERENCE, MODE_PRIVATE);
+
+        String id = loginInfoPref.getString("id", "");
+        String pw = loginInfoPref.getString("pw", "");
+
+        editId.setText(id);
+        editPassword.setText(pw);
+    }
+
+    private void updateLoginInfo(String id, String pw) {
+        SharedPreferences loginInfoPref = getSharedPreferences(USER_INFO_PREFERENCE, MODE_PRIVATE);
+        SharedPreferences.Editor editor = loginInfoPref.edit();
+        editor.putString("id", id);
+        editor.putString("pw", pw);
+        editor.commit();
     }
 }
