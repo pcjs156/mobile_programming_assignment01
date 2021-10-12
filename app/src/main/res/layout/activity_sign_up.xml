@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="30dp">
 
     <TextView
         android:id="@+id/signUpTitle"
@@ -21,15 +21,22 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100sp">
-
-            <TextView
+            android:layout_height="wrap_content"
+            android:padding="0.5sp"
+            android:background="@color/black">
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="20sp"
-                android:text="@string/termsAndConditions" />
-        </ScrollView>
+                android:layout_height="100sp"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="20sp"
+                    android:text="@string/termsAndConditions" />
+            </ScrollView>
+        </LinearLayout>
 
         <RadioGroup
             android:id="@+id/TCRadioGroup"
@@ -74,67 +81,31 @@
             android:text="필수 기입 정보"
             android:textSize="20sp" />
 
-        <LinearLayout
+
+        <EditText
+            android:id="@+id/idEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_weight="4"
+            android:hint="ID"
+            android:inputType="text" />
 
-            <EditText
-                android:id="@+id/idEdit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:hint="ID"
-                android:inputType="text" />
-
-            <Button
-                android:id="@+id/idCheckBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="확인" />
-        </LinearLayout>
-
-        <LinearLayout
+        <EditText
+            android:id="@+id/passwordEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_weight="4"
+            android:hint="PW"
+            android:inputType="textPassword" />
 
-            <EditText
-                android:id="@+id/passwordEdit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:hint="PW"
-                android:inputType="textPassword" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:visibility="invisible" />
-        </LinearLayout>
-
-        <LinearLayout
+        <EditText
+            android:id="@+id/passwordAgainEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_weight="4"
+            android:hint="PW Again"
+            android:inputType="textPassword" />
 
-            <EditText
-                android:id="@+id/passwordAgainEdit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:hint="PW Again"
-                android:inputType="textPassword" />
-
-            <Button
-                android:id="@+id/passwordCheckBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="확인" />
-        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout

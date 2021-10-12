@@ -23,8 +23,6 @@ public class SignUpActivity extends ActivityWithUserInfoView {
     EditText telEdit;
     EditText addressEdit;
 
-    Button idCheckBtn;
-    Button passwordCheckBtn;
     Button signUpCompleteBtn;
 
     RadioGroup TCRadioGroup;
@@ -47,8 +45,6 @@ public class SignUpActivity extends ActivityWithUserInfoView {
         telEdit = (EditText) findViewById(R.id.telEdit);
         addressEdit = (EditText) findViewById(R.id.addressEdit);
 
-        idCheckBtn = (Button) findViewById(R.id.idCheckBtn);
-        passwordCheckBtn = (Button) findViewById(R.id.passwordCheckBtn);
         signUpCompleteBtn = (Button) findViewById(R.id.signUpCompleteBtn);
     }
 
