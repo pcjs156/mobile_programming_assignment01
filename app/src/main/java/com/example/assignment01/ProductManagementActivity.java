@@ -16,7 +16,13 @@ public class ProductManagementActivity extends ActivityWithUserInfoView {
         setContentView(R.layout.activity_product_management);
 
         Intent intentFromMainActivity = getIntent();
-        User user = intentFromMainActivity.getParcelableExtra("user");
-        Toast.makeText(getApplicationContext(), user.getId(), Toast.LENGTH_SHORT).show();
+        boolean isGuest = intentFromMainActivity.getBooleanExtra("isGuest", true);
+
+        if (isGuest) {
+            Toast.makeText(getApplicationContext(), "게스트 로그인", Toast.LENGTH_SHORT).show();
+        } else {
+            User user = intentFromMainActivity.getParcelableExtra("user");
+            Toast.makeText(getApplicationContext(), user.getId(), Toast.LENGTH_SHORT).show();
+        }
     }
 }

@@ -28,9 +28,12 @@ public class MainActivity extends ActivityWithUserInfoView {
 
     Button signUpBtn;
     Button loginBtn;
+    Button guestLoginBtn;
 
     EditText editId;
     EditText editPassword;
+
+    private boolean isGuest = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,7 @@ public class MainActivity extends ActivityWithUserInfoView {
     private void initializeComponents() {
         signUpBtn = (Button) findViewById(R.id.signUpBtn);
         loginBtn = (Button) findViewById(R.id.loginBtn);
+        guestLoginBtn = (Button) findViewById(R.id.guestLoginBtn);
         editId = (EditText) findViewById(R.id.editId);
         editPassword = (EditText) findViewById(R.id.editPassword);
     }
@@ -90,14 +94,28 @@ public class MainActivity extends ActivityWithUserInfoView {
                         Toast.makeText(getApplicationContext(), "ID와 비밀번호를 확인해 주세요.", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_SHORT).show();
+                        isGuest = false;
 
                         updateLoginInfo(loggedUser.getId(), loggedUser.getPw());
 
                         Intent intent = new Intent(getApplicationContext(), ProductManagementActivity.class);
                         intent.putExtra("user", loggedUser);
+                        intent.putExtra("isGuest", isGuest);
                         startActivity(intent);
                     }
                 }
+            }
+        });
+
+        guestLoginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "게스트 로그인 성공", Toast.LENGTH_SHORT).show();
+                updateLoginInfo("", "");
+
+                Intent intent = new Intent(getApplicationContext(), ProductManagementActivity.class);
+                intent.putExtra("isGuest", isGuest);
+                startActivity(intent);
             }
         });
     }
