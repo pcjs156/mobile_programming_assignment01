@@ -10,7 +10,7 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class ActivityWithUserInfoView extends AppCompatActivity {
+public abstract class ActivityWithUserInfoView extends AppCompatActivity {
     protected UserInfoDBManager userInfoDBManager;
     protected SQLiteDatabase db;
 
@@ -31,4 +31,7 @@ public class ActivityWithUserInfoView extends AppCompatActivity {
             finish();
         }
     }
+
+    protected abstract void initializeComponents();
+    protected abstract void setOnClickListener();
 }

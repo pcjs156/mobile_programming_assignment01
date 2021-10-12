@@ -63,7 +63,7 @@ public class MainActivity extends ActivityWithUserInfoView {
         fillLoginInfo();
     }
 
-    private void initializeComponents() {
+    protected void initializeComponents() {
         signUpBtn = (Button) findViewById(R.id.signUpBtn);
         loginBtn = (Button) findViewById(R.id.loginBtn);
         guestLoginBtn = (Button) findViewById(R.id.guestLoginBtn);
@@ -71,7 +71,7 @@ public class MainActivity extends ActivityWithUserInfoView {
         editPassword = (EditText) findViewById(R.id.editPassword);
     }
 
-    private void setOnClickListener() {
+    protected void setOnClickListener() {
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

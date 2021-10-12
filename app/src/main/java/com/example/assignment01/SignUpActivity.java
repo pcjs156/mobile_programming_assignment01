@@ -31,11 +31,11 @@ public class SignUpActivity extends ActivityWithUserInfoView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-        linkComponents();
+        initializeComponents();
         setOnClickListener();
     }
 
-    private void linkComponents() {
+    protected void initializeComponents() {
         TCRadioGroup = (RadioGroup) findViewById(R.id.TCRadioGroup);
 
         idEdit = (EditText) findViewById(R.id.idEdit);
@@ -48,7 +48,7 @@ public class SignUpActivity extends ActivityWithUserInfoView {
         signUpCompleteBtn = (Button) findViewById(R.id.signUpCompleteBtn);
     }
 
-    private void setOnClickListener() {
+    protected void setOnClickListener() {
         signUpCompleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
