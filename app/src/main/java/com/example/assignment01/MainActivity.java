@@ -33,8 +33,6 @@ public class MainActivity extends ActivityWithUserInfoView {
     EditText editId;
     EditText editPassword;
 
-    private boolean isGuest = true;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,13 +92,11 @@ public class MainActivity extends ActivityWithUserInfoView {
                         Toast.makeText(getApplicationContext(), "ID와 비밀번호를 확인해 주세요.", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_SHORT).show();
-                        isGuest = false;
-
                         updateLoginInfo(loggedUser.getId(), loggedUser.getPw());
 
                         Intent intent = new Intent(getApplicationContext(), ProductManagementActivity.class);
                         intent.putExtra("user", loggedUser);
-                        intent.putExtra("isGuest", isGuest);
+                        intent.putExtra("isGuest", false);
                         startActivity(intent);
                     }
                 }
@@ -114,7 +110,7 @@ public class MainActivity extends ActivityWithUserInfoView {
                 updateLoginInfo("", "");
 
                 Intent intent = new Intent(getApplicationContext(), ProductManagementActivity.class);
-                intent.putExtra("isGuest", isGuest);
+                intent.putExtra("isGuest", true);
                 startActivity(intent);
             }
         });
