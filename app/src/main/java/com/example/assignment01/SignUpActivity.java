@@ -58,7 +58,7 @@ public class SignUpActivity extends ActivityWithUserInfo {
                 String password = passwordEdit.getText().toString().trim();
                 String passwordAgain = passwordAgainEdit.getText().toString().trim();
                 String name = nameEdit.getText().toString().trim();
-                String tel = nameEdit.getText().toString().trim();
+                String tel = telEdit.getText().toString().trim();
                 String address = addressEdit.getText().toString().trim();
 
                 MessageBox msg = new MessageBox("");
