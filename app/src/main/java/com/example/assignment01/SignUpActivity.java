@@ -1,11 +1,7 @@
 package com.example.assignment01;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,7 +11,7 @@ import android.widget.Toast;
 import com.example.assignment01.parcelable.User;
 import com.example.assignment01.util.MessageBox;
 
-public class SignUpActivity extends ActivityWithUserInfoView {
+public class SignUpActivity extends ActivityWithUserInfo {
     EditText idEdit;
     EditText passwordEdit;
     EditText passwordAgainEdit;

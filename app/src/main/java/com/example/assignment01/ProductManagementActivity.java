@@ -1,24 +1,22 @@
 package com.example.assignment01;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.ContextMenu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.assignment01.parcelable.User;
 
-public class ProductManagementActivity extends ActivityWithUserInfoView {
+public class ProductManagementActivity extends ActivityWithUserInfo {
+    ListView productContainer;
     FrameLayout bottomBarContainer;
 
     LinearLayout normalModeBottomBtnContainer;
@@ -32,6 +30,8 @@ public class ProductManagementActivity extends ActivityWithUserInfoView {
 
     User loggedUser = null;
     boolean isGuest = false;
+
+    ArrayAdapter productAdapter;
 
     ProductManagementActivity productManagementActivity = this;
 
@@ -49,6 +49,7 @@ public class ProductManagementActivity extends ActivityWithUserInfoView {
 
     @Override
     protected void initializeComponents() {
+        productContainer = (ListView) findViewById(R.id.productContainer);
         bottomBarContainer = (FrameLayout) findViewById(R.id.bottomBarContainer);
 
         normalModeBottomBtnContainer = (LinearLayout) findViewById(R.id.normalModeBottomBtnContainer);
@@ -59,6 +60,8 @@ public class ProductManagementActivity extends ActivityWithUserInfoView {
         deleteModeBottomBtnContainer = (LinearLayout) findViewById(R.id.deleteModeBottomBtnContainer);
         deleteCancelBtn = (Button) findViewById(R.id.deleteCancelBtn);
         deleteCommitBtn = (Button) findViewById(R.id.deleteCommitBtn);
+
+        initializeProductContainer();
     }
 
     @Override
@@ -139,5 +142,9 @@ public class ProductManagementActivity extends ActivityWithUserInfoView {
             loggedUser = intentFromMainActivity.getParcelableExtra("user");
             Toast.makeText(getApplicationContext(), loggedUser.getId(), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void initializeProductContainer() {
+
     }
 }
