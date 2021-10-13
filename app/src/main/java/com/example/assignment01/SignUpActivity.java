@@ -62,7 +62,7 @@ public class SignUpActivity extends ActivityWithUserInfo {
                 String address = addressEdit.getText().toString().trim();
 
                 MessageBox msg = new MessageBox("");
-                boolean isCreated = userInfoDBManager.create(db, msg, id, password, passwordAgain,
+                boolean isCreated = userInfoDBManager.create(userDB, msg, id, password, passwordAgain,
                         name, tel, address);
 
                 if (isCreated) {

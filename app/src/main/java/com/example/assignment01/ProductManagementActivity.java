@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.example.assignment01.parcelable.User;
 
-public class ProductManagementActivity extends ActivityWithUserInfo {
+public class ProductManagementActivity extends ActivityWithDB {
     ListView productContainer;
     FrameLayout bottomBarContainer;
 

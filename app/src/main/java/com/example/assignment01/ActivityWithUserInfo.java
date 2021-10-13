@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public abstract class ActivityWithUserInfo extends AppCompatActivity {
     protected UserInfoDBManager userInfoDBManager;
-    protected SQLiteDatabase db;
+    protected SQLiteDatabase userDB;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -20,11 +20,11 @@ public abstract class ActivityWithUserInfo extends AppCompatActivity {
         initializeDB();
     }
 
-    private void initializeDB() {
+    protected void initializeDB() {
         userInfoDBManager = new UserInfoDBManager(this, "user_info", null, dbVersion);
         try {
-            db = userInfoDBManager.getWritableDatabase();
-            Log.d("DB", db.toString());
+            userDB = userInfoDBManager.getWritableDatabase();
+            Log.d("DB", userDB.toString());
         } catch (SQLiteException e) {
             e.printStackTrace();
             Log.e("DB", "데이터베이스를 얻어올 수 없음");
