@@ -12,7 +12,8 @@
         android:id="@+id/productContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:choiceMode="multipleChoice">
 
     </ListView>
 
@@ -35,15 +36,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:backgroundTint="@color/design_default_color_error"
-                android:text="취소" />
-
-            <Button
-                android:id="@+id/deleteCommitBtn"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:backgroundTint="@color/design_default_color_error"
-                android:text="삭제" />
+                android:text="종료" />
         </LinearLayout>
 
         <LinearLayout

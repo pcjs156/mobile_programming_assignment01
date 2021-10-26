@@ -8,12 +8,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.assignment01.adapter.ProductAdapter;
@@ -36,16 +34,18 @@ public class ProductManagementActivity extends ActivityWithDB {
 
     LinearLayout deleteModeBottomBtnContainer;
     Button deleteCancelBtn;
-    Button deleteCommitBtn;
 
     User loggedUser = null;
     boolean isGuest = false;
 
-    ProductManagementActivity productManagementActivity = this;
+    ProductManagementActivity self = this;
+
+    public static boolean deleteMode = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_product_management);
         initializeComponents();
         setOnClickListener();
@@ -67,7 +67,6 @@ public class ProductManagementActivity extends ActivityWithDB {
 
         deleteModeBottomBtnContainer = (LinearLayout) findViewById(R.id.deleteModeBottomBtnContainer);
         deleteCancelBtn = (Button) findViewById(R.id.deleteCancelBtn);
-        deleteCommitBtn = (Button) findViewById(R.id.deleteCommitBtn);
 
         initializeProductContainer();
     }
@@ -77,6 +76,10 @@ public class ProductManagementActivity extends ActivityWithDB {
         deleteProductBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                deleteMode = true;
+
+                Log.d("HELLO", "CHECKED: " + productContainer.getCheckedItemCount());
+
                 normalModeBottomBtnContainer.setVisibility(View.INVISIBLE);
                 deleteModeBottomBtnContainer.setVisibility(View.VISIBLE);
             }
@@ -85,6 +88,8 @@ public class ProductManagementActivity extends ActivityWithDB {
         deleteCancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                deleteMode = false;
+
                 normalModeBottomBtnContainer.setVisibility(View.VISIBLE);
                 deleteModeBottomBtnContainer.setVisibility(View.INVISIBLE);
             }
@@ -93,7 +98,7 @@ public class ProductManagementActivity extends ActivityWithDB {
         userInfoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(productManagementActivity);
+                AlertDialog.Builder dialog = new AlertDialog.Builder(self);
 
                 if (isGuest) {
                     dialog.setTitle("게스트 사용자");

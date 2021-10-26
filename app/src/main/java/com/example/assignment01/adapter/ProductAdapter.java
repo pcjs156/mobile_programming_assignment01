@@ -3,14 +3,19 @@ package com.example.assignment01.adapter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
+
 import com.example.assignment01.ProductDBManager;
+import com.example.assignment01.ProductManagementActivity;
 import com.example.assignment01.R;
 import com.example.assignment01.util.ImageUtil;
 
@@ -24,7 +29,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductAdapter extends BaseAdapter {
-    private List<Bundle> products = new ArrayList<>();
+    public List<Bundle> products = new ArrayList<>();
+
+    public ProductAdapter self = this;
 
     public ProductAdapter(ArrayList<Bundle> products) {
         for (Bundle product : products) {
@@ -59,6 +66,30 @@ public class ProductAdapter extends BaseAdapter {
         File image = new File(((Bundle) getItem(i)).getString("filepath"));
         Bitmap imageBitmap = ImageUtil.compressBitmap(image);
         imageView.setImageBitmap(imageBitmap);
+
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ProductManagementActivity.deleteMode) {
+                    TextView nameView = (TextView) v.findViewById(R.id.productName);
+                    String productName = nameView.getText().toString();
+
+                    ArrayList<Bundle> newProducts = new ArrayList<>();
+                    for (Bundle item : products) {
+                        if (!item.getString("name").equals(productName))
+                            newProducts.add(item);
+                    }
+                    self.products = newProducts;
+                    self.notifyDataSetChanged();
+                }
+            }
+        });
+
+        return itemView;
+    }
+
+    public View getView(int i, View view, ViewGroup viewGroup, ArrayList<Bundle> newProducts) {
+        View itemView = this.getView(i, view, viewGroup);
 
         return itemView;
     }
