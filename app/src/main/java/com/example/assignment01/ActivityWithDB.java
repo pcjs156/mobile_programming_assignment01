@@ -20,10 +20,8 @@ public abstract class ActivityWithDB extends ActivityWithUserInfo {
         productDBManager = new ProductDBManager(this, "product", null, dbVersion);
         try {
             productDB = productDBManager.getWritableDatabase();
-            Log.d("PRODUCT_DB", productDB.toString());
         } catch (SQLiteException e) {
             e.printStackTrace();
-            Log.e("PRODUCT_DB", "데이터베이스를 얻어올 수 없음");
             finish();
         }
     }

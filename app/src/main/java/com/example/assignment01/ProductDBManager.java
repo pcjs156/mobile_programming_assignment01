@@ -28,7 +28,6 @@ public class ProductDBManager extends SQLiteOpenHelper {
     }
 
     public void create(SQLiteDatabase db, String name, String filepath) {
-        Log.d("PYTHON", db.toString());
         String sql = String.format("INSERT INTO product (name, filepath) values (\"%s\", \"%s\");", name, filepath);
         db.execSQL(sql);
     }
@@ -38,7 +37,6 @@ public class ProductDBManager extends SQLiteOpenHelper {
         Cursor c = db.rawQuery(sql, null);
 
         ArrayList<Bundle> result = new ArrayList<>();
-        Log.d("HELLO", "cnt: " + c.getCount());
         while (c.moveToNext()) {
             Bundle product = new Bundle();
             product.putInt("id", c.getInt(0));

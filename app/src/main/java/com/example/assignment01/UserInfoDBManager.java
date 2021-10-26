@@ -37,14 +37,12 @@ public class UserInfoDBManager extends SQLiteOpenHelper {
 
         // 필수 입력값이 전달되지 않은 경우
         if (id.isEmpty() || pw.isEmpty() || pwAgain.isEmpty()) {
-            Log.d("DB", "All required fields must be filled out.");
             msg.setBody("ID, 비밀번호, 비밀번호 확인란은 반드시 입력되어야 합니다.");
             return false;
         }
 
         // 비밀번호와 비밀번호 확인란의 값이 다른 경우
         if (!pw.equals(pwAgain)) {
-            Log.d("DB", "pw and pwAgain field's value is different.");
             msg.setBody("비밀번호와 비밀번호 확인란의 값이 다릅니다.");
             return false;
         }
@@ -55,7 +53,6 @@ public class UserInfoDBManager extends SQLiteOpenHelper {
         final String PW_FULL_CHECK_REGEX = "[0-9a-zA-Z]+";
         if (pw.length() < 7 || pw.matches(PW_NUM_CHECK_REGEX) || pw.matches(PW_ALPHA_CHECK_REGEX) ||
                 !pw.matches(PW_FULL_CHECK_REGEX)) {
-            Log.d("DB", "The password must contain at least 7 numbers and" +
                     "alphabets");
             msg.setBody("비밀번호는 7자 이상의 숫자와 알파벳의 조합으로 구성되어야 합니다.");
             return false;
@@ -63,11 +60,9 @@ public class UserInfoDBManager extends SQLiteOpenHelper {
 
         try {
             db.execSQL(sql);
-            Log.d("DB", "signup complete!");
         }
         // 이미 사용중인 ID인 경우
         catch (SQLiteConstraintException e) {
-            Log.d("DB", "ID '" + id + "' is already exists.");
             msg.setBody("사용중인 ID입니다.");
             return false;
         }
@@ -78,7 +73,6 @@ public class UserInfoDBManager extends SQLiteOpenHelper {
     public User login(SQLiteDatabase db, String id, String pw) {
         String sql = "SELECT id, pw, name, tel, address FROM user_info WHERE id LIKE '%" + id + "%' AND pw LIKE '%" + pw + "%';";
 
-        Log.i("SQL", sql);
         Cursor c = db.rawQuery(sql, null);
 
         boolean exists = c.moveToNext();

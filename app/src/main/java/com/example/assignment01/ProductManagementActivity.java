@@ -232,7 +232,6 @@ public class ProductManagementActivity extends ActivityWithDB {
 
             for (int i = 0; i < INITIAL_PRODUCT_CNT; i++) {
                 File image = guitar_images.get(i);
-                Log.d("PRODUCT_FILE", image.getPath());
                 productDBManager.create(productDB, "기타 " + (i + 1), image.getPath());
             }
         }

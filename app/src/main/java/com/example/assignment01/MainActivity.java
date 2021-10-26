@@ -175,14 +175,11 @@ public class MainActivity extends ActivityWithDB {
                     bm.compress(Bitmap.CompressFormat.PNG, 100, out);
                     out.close();
                 } catch (Resources.NotFoundException ex) {
-                    Log.d("DB", "Product info initialization failed.");
                     finish();
                     break;
                 } catch (FileNotFoundException e) {
-                    Log.d("DB", "FILE NOT FOUND AT " + resName);
                     e.printStackTrace();
                 } catch (IOException e) {
-                    Log.d("DB", "IO EXCEPTION AT " + resName);
                     e.printStackTrace();
                 }
             }

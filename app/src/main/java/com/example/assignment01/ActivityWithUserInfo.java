@@ -24,10 +24,8 @@ public abstract class ActivityWithUserInfo extends AppCompatActivity {
         userInfoDBManager = new UserInfoDBManager(this, "user_info", null, dbVersion);
         try {
             userDB = userInfoDBManager.getWritableDatabase();
-            Log.d("DB", userDB.toString());
         } catch (SQLiteException e) {
             e.printStackTrace();
-            Log.e("DB", "데이터베이스를 얻어올 수 없음");
             finish();
         }
     }
