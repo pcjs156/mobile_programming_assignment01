@@ -175,7 +175,7 @@ public class MainActivity extends ActivityWithDB {
                     bm.compress(Bitmap.CompressFormat.PNG, 100, out);
                     out.close();
 
-                    productDBManager.create(productDB, "guitar " + i, tempFile.toString());
+//                    productDBManager.create(productDB, "guitar " + i, tempFile.toString());
                 } catch (Resources.NotFoundException ex) {
                     Log.d("DB", "Product info initialization failed.");
                     finish();

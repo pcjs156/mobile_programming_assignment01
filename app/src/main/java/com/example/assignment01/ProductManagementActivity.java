@@ -13,8 +13,10 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.assignment01.adapter.ProductAdapter;
 import com.example.assignment01.parcelable.User;
 
 import java.io.File;
@@ -23,6 +25,8 @@ import java.util.Random;
 
 public class ProductManagementActivity extends ActivityWithDB {
     ListView productContainer;
+    ProductAdapter productAdapter;
+
     FrameLayout bottomBarContainer;
 
     LinearLayout normalModeBottomBtnContainer;
@@ -149,12 +153,20 @@ public class ProductManagementActivity extends ActivityWithDB {
     }
 
     private void initializeProductContainer() {
+        createInitialProducts();
+
+        ArrayList<Bundle> products = productDBManager.get(productDB);
+        productAdapter = new ProductAdapter(products);
+        productContainer.setAdapter(productAdapter);
+    }
+
+    private void createInitialProducts() {
         SharedPreferences prefs = getSharedPreferences("product", MODE_PRIVATE);
         boolean isInitialProductCreated = prefs.getBoolean("isInitialProductCreated", false);
 
         if (!isInitialProductCreated) {
             // 처음에 몇 개의 제품을 준비해놓을 것인지 결정
-            final int INITIAL_PRODUCT_CNT = 5;
+            final int INITIAL_PRODUCT_CNT = 7;
 
             final String BASE_IMG_NAME = "guitar";
             final String PACKAGE_NAME = getPackageName();
@@ -183,10 +195,10 @@ public class ProductManagementActivity extends ActivityWithDB {
                 guitar_images.set(idx2, f1);
             }
 
-            for(int i=0; i<INITIAL_PRODUCT_CNT; i++) {
+            for (int i = 0; i < INITIAL_PRODUCT_CNT; i++) {
                 File image = guitar_images.get(i);
                 Log.d("PRODUCT_FILE", image.getPath());
-                productDBManager.create(productDB, "기타 " + (i+1), image.getPath());
+                productDBManager.create(productDB, "기타 " + (i + 1), image.getPath());
             }
         }
 

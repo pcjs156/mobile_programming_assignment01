@@ -1,9 +1,13 @@
 package com.example.assignment01;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Bundle;
 import android.util.Log;
+
+import java.util.ArrayList;
 
 public class ProductDBManager extends SQLiteOpenHelper {
     public ProductDBManager(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -27,5 +31,20 @@ public class ProductDBManager extends SQLiteOpenHelper {
         Log.d("PYTHON", db.toString());
         String sql = String.format("INSERT INTO product values (\"%s\", \"%s\");", name, filepath);
         db.execSQL(sql);
+    }
+
+    public ArrayList<Bundle> get(SQLiteDatabase db) {
+        String sql = "SELECT name, filepath FROM product;";
+        Cursor c = db.rawQuery(sql, null);
+
+        ArrayList<Bundle> result = new ArrayList<>();
+        while (c.moveToNext()) {
+            Bundle product = new Bundle();
+            product.putString("name", c.getString(0));
+            product.putString("filepath", c.getString(1));
+            result.add(product);
+        }
+
+        return result;
     }
 }
