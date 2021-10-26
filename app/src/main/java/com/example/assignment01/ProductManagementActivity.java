@@ -1,6 +1,9 @@
 package com.example.assignment01;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,6 +25,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class ProductManagementActivity extends ActivityWithDB {
+    private static final int ADD_PRODUCT = 1;
+
     ListView productContainer;
     ProductAdapter productAdapter;
 
@@ -160,6 +165,14 @@ public class ProductManagementActivity extends ActivityWithDB {
                 dialog.show();
             }
         });
+
+        addProductBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), NewProductActivity.class);
+                startActivityForResult(intent, ADD_PRODUCT);
+            }
+        });
     }
 
     private void initializeUserInfo(Intent intentFromMainActivity) {
@@ -227,5 +240,29 @@ public class ProductManagementActivity extends ActivityWithDB {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean("isInitialProductCreated", true);
         editor.commit();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == ADD_PRODUCT) {
+            if (resultCode == RESULT_OK) {
+                String filepath = data.getStringExtra("filepath");
+                String name = data.getStringExtra("name");
+
+                productDBManager.create(productDB, name, filepath);
+                Bundle newInfo = new Bundle();
+                newInfo.putString("name", name);
+                newInfo.putString("filepath", filepath);
+
+                productAdapter.products.add(0, newInfo);
+                productAdapter.notifyDataSetChanged();
+
+                Toast.makeText(getApplicationContext(), "제품 추가가 완료되었습니다.", Toast.LENGTH_SHORT).show();
+            } else if (requestCode == RESULT_CANCELED) {
+                Toast.makeText(getApplicationContext(), "제품 추가를 취소하셨습니다.", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }
