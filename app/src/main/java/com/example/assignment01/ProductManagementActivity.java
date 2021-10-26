@@ -169,8 +169,28 @@ public class ProductManagementActivity extends ActivityWithDB {
         addProductBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), NewProductActivity.class);
-                startActivityForResult(intent, ADD_PRODUCT);
+                if (isGuest) {
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(self);
+                    dialog.setTitle("회원만 사용할 수 있는 기능입니다.");
+                    dialog.setPositiveButton("회원가입", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    });
+                    dialog.setNegativeButton("돌아가기", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            // DO NOTHING
+                        }
+                    });
+                    dialog.show();
+                } else {
+                    Intent intent = new Intent(getApplicationContext(), NewProductActivity.class);
+                    startActivityForResult(intent, ADD_PRODUCT);
+                }
             }
         });
     }
