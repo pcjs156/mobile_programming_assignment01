@@ -76,12 +76,29 @@ public class ProductManagementActivity extends ActivityWithDB {
         deleteProductBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                deleteMode = true;
-
-                Log.d("HELLO", "CHECKED: " + productContainer.getCheckedItemCount());
-
-                normalModeBottomBtnContainer.setVisibility(View.INVISIBLE);
-                deleteModeBottomBtnContainer.setVisibility(View.VISIBLE);
+                if (isGuest) {
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(self);
+                    dialog.setTitle("회원만 사용할 수 있는 기능입니다.");
+                    dialog.setPositiveButton("회원가입", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    });
+                    dialog.setNegativeButton("돌아가기", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            // DO NOTHING
+                        }
+                    });
+                    dialog.show();
+                } else {
+                    deleteMode = true;
+                    normalModeBottomBtnContainer.setVisibility(View.INVISIBLE);
+                    deleteModeBottomBtnContainer.setVisibility(View.VISIBLE);
+                }
             }
         });
 
@@ -101,7 +118,7 @@ public class ProductManagementActivity extends ActivityWithDB {
                 AlertDialog.Builder dialog = new AlertDialog.Builder(self);
 
                 if (isGuest) {
-                    dialog.setTitle("게스트 사용자");
+                    dialog.setTitle("회원만 사용할 수 있는 기능입니다.");
                     dialog.setPositiveButton("회원가입", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {

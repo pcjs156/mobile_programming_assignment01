@@ -16,7 +16,7 @@ public class ProductDBManager extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String sql = "CREATE TABLE IF NOT EXISTS product(name TEXT, filepath TEXT)";
+        String sql = "CREATE TABLE IF NOT EXISTS product(id integer primary key autoincrement, name TEXT, filepath TEXT)";
         sqLiteDatabase.execSQL(sql);
     }
 
@@ -29,19 +29,21 @@ public class ProductDBManager extends SQLiteOpenHelper {
 
     public void create(SQLiteDatabase db, String name, String filepath) {
         Log.d("PYTHON", db.toString());
-        String sql = String.format("INSERT INTO product values (\"%s\", \"%s\");", name, filepath);
+        String sql = String.format("INSERT INTO product (name, filepath) values (\"%s\", \"%s\");", name, filepath);
         db.execSQL(sql);
     }
 
     public ArrayList<Bundle> get(SQLiteDatabase db) {
-        String sql = "SELECT name, filepath FROM product;";
+        String sql = "SELECT id, name, filepath FROM product;";
         Cursor c = db.rawQuery(sql, null);
 
         ArrayList<Bundle> result = new ArrayList<>();
+        Log.d("HELLO", "cnt: " + c.getCount());
         while (c.moveToNext()) {
             Bundle product = new Bundle();
-            product.putString("name", c.getString(0));
-            product.putString("filepath", c.getString(1));
+            product.putInt("id", c.getInt(0));
+            product.putString("name", c.getString(1));
+            product.putString("filepath", c.getString(2));
             result.add(product);
         }
 

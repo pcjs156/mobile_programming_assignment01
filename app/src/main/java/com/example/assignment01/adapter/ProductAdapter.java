@@ -1,7 +1,9 @@
 package com.example.assignment01.adapter;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,12 +13,15 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 
 import com.example.assignment01.ProductDBManager;
 import com.example.assignment01.ProductManagementActivity;
 import com.example.assignment01.R;
+import com.example.assignment01.settings.Constant;
 import com.example.assignment01.util.ImageUtil;
 
 import org.w3c.dom.Text;
@@ -59,6 +64,9 @@ public class ProductAdapter extends BaseAdapter {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
         View itemView = inflater.inflate(R.layout.product_item, viewGroup, false);
 
+        TextView productIdView = itemView.findViewById(R.id.productId);
+        productIdView.setText(Integer.toString(((Bundle) getItem(i)).getInt("id")));
+
         TextView textView = itemView.findViewById(R.id.productName);
         textView.setText(((Bundle) getItem(i)).getString("name"));
 
@@ -68,16 +76,26 @@ public class ProductAdapter extends BaseAdapter {
         imageView.setImageBitmap(imageBitmap);
 
         itemView.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O_MR1)
             @Override
             public void onClick(View v) {
                 if (ProductManagementActivity.deleteMode) {
-                    TextView nameView = (TextView) v.findViewById(R.id.productName);
-                    String productName = nameView.getText().toString();
+                    TextView productIdView = (TextView) v.findViewById(R.id.productId);
+                    int id = Integer.parseInt(productIdView.getText().toString());
 
                     ArrayList<Bundle> newProducts = new ArrayList<>();
                     for (Bundle item : products) {
-                        if (!item.getString("name").equals(productName))
+                        if (item.getInt("id") == id) {
+                            String DB_PATH = "/data/data/com.example.assignment01/databases/product";
+                            File DB = new File(DB_PATH);
+
+                            SQLiteDatabase.OpenParams params = new SQLiteDatabase.OpenParams.Builder().build();
+                            SQLiteDatabase db = SQLiteDatabase.openDatabase(DB, params);
+                            db.execSQL("DELETE FROM product WHERE id=" + id);
+                            db.close();
+                        } else {
                             newProducts.add(item);
+                        }
                     }
                     self.products = newProducts;
                     self.notifyDataSetChanged();
