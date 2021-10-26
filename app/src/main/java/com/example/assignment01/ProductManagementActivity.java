@@ -4,7 +4,9 @@ import androidx.appcompat.app.AlertDialog;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -14,6 +16,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.assignment01.parcelable.User;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class ProductManagementActivity extends ActivityWithDB {
     ListView productContainer;
@@ -30,8 +36,6 @@ public class ProductManagementActivity extends ActivityWithDB {
 
     User loggedUser = null;
     boolean isGuest = false;
-
-    ArrayAdapter productAdapter;
 
     ProductManagementActivity productManagementActivity = this;
 
@@ -145,6 +149,49 @@ public class ProductManagementActivity extends ActivityWithDB {
     }
 
     private void initializeProductContainer() {
+        SharedPreferences prefs = getSharedPreferences("product", MODE_PRIVATE);
+        boolean isInitialProductCreated = prefs.getBoolean("isInitialProductCreated", false);
 
+        if (!isInitialProductCreated) {
+            // 처음에 몇 개의 제품을 준비해놓을 것인지 결정
+            final int INITIAL_PRODUCT_CNT = 5;
+
+            final String BASE_IMG_NAME = "guitar";
+            final String PACKAGE_NAME = getPackageName();
+            String extStorageDirectory = getExternalCacheDir().getAbsolutePath();
+
+            File directory = new File(extStorageDirectory);
+            File[] files = directory.listFiles();
+            // 미리 준비된 기타 이미지만 남김
+            ArrayList<File> guitar_images = new ArrayList<>();
+            for (File file : files) {
+                if (file.getName().endsWith(".png") && file.getName().startsWith("guitar"))
+                    guitar_images.add(file);
+            }
+
+            // 이미지를 섞어줌
+            Random r = new Random();
+            final int IMG_CNT = guitar_images.size();
+            for (int i = 0; i < IMG_CNT * 2; i++) {
+                int idx1 = r.nextInt(IMG_CNT);
+                int idx2 = r.nextInt(IMG_CNT);
+
+                File f1 = guitar_images.get(idx1);
+                File f2 = guitar_images.get(idx2);
+
+                guitar_images.set(idx1, f2);
+                guitar_images.set(idx2, f1);
+            }
+
+            for(int i=0; i<INITIAL_PRODUCT_CNT; i++) {
+                File image = guitar_images.get(i);
+                Log.d("PRODUCT_FILE", image.getPath());
+                productDBManager.create(productDB, "기타 " + (i+1), image.getPath());
+            }
+        }
+
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("isInitialProductCreated", true);
+        editor.commit();
     }
 }
