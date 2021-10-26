@@ -51,9 +51,8 @@ public class UserInfoDBManager extends SQLiteOpenHelper {
         final String PW_NUM_CHECK_REGEX = "[0-9]+";
         final String PW_ALPHA_CHECK_REGEX = "[a-zA-Z]+";
         final String PW_FULL_CHECK_REGEX = "[0-9a-zA-Z]+";
-        if (pw.length() < 7 || pw.matches(PW_NUM_CHECK_REGEX) || pw.matches(PW_ALPHA_CHECK_REGEX) ||
-                !pw.matches(PW_FULL_CHECK_REGEX)) {
-                    "alphabets");
+        if (pw.length() < 7 || pw.matches(PW_NUM_CHECK_REGEX) ||
+                pw.matches(PW_ALPHA_CHECK_REGEX) || !pw.matches(PW_FULL_CHECK_REGEX)) {
             msg.setBody("비밀번호는 7자 이상의 숫자와 알파벳의 조합으로 구성되어야 합니다.");
             return false;
         }
