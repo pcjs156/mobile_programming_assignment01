@@ -1,4 +1,4 @@
-package com.example.assignment01;
+package com.example.assignment01.activity;
 
 import static com.example.assignment01.settings.Constant.dbVersion;
 
@@ -8,6 +8,8 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.assignment01.db.UserInfoDBManager;
 
 public abstract class ActivityWithUserInfo extends AppCompatActivity {
     protected UserInfoDBManager userInfoDBManager;

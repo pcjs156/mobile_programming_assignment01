@@ -1,4 +1,4 @@
-package com.example.assignment01;
+package com.example.assignment01.activity;
 
 import static com.example.assignment01.settings.Constant.IS_FIRST_EXEC_REFERENCE;
 import static com.example.assignment01.settings.Constant.USER_INFO_PREFERENCE;
@@ -19,6 +19,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 
+import com.example.assignment01.R;
 import com.example.assignment01.parcelable.User;
 
 import java.io.File;

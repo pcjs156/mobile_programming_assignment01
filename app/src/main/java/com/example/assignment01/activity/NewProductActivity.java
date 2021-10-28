@@ -1,4 +1,4 @@
-package com.example.assignment01;
+package com.example.assignment01.activity;
 
 import android.content.Intent;
 import android.os.Build;
@@ -11,6 +11,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.RequiresApi;
 
+import com.example.assignment01.R;
 import com.example.assignment01.util.ImageUtil;
 
 import java.io.File;

@@ -1,4 +1,4 @@
-package com.example.assignment01;
+package com.example.assignment01.activity;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.assignment01.R;
 import com.example.assignment01.adapter.ProductAdapter;
 import com.example.assignment01.parcelable.User;
 

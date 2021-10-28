@@ -14,16 +14,16 @@
         android:theme="@style/Theme.Assignment01"
         android:requestLegacyExternalStorage="true" >
         <activity
-            android:name=".ProductManagementActivity"
+            android:name=".activity.ProductManagementActivity"
             android:exported="true" />
         <activity
-            android:name=".SignUpActivity"
+            android:name=".activity.SignUpActivity"
             android:exported="true" />
         <activity
-            android:name=".NewProductActivity"
+            android:name=".activity.NewProductActivity"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

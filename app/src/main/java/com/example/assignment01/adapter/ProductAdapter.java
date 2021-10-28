@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 
-import com.example.assignment01.ProductManagementActivity;
+import com.example.assignment01.activity.ProductManagementActivity;
 import com.example.assignment01.R;
 import com.example.assignment01.util.ImageUtil;
 
