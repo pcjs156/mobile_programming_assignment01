@@ -62,7 +62,7 @@ public class MainActivity extends ActivityWithDB {
                             updateLoginInfo(user.getId(), user.getPw());
                             fillLoginInfo();
 
-                            Toast.makeText(getApplicationContext(), "회원가입이 완료되었습니다.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -98,13 +98,12 @@ public class MainActivity extends ActivityWithDB {
                 String pw = editPassword.getText().toString();
 
                 if (id.length() == 0 || pw.length() == 0) {
-                    Toast.makeText(getApplicationContext(), "ID와 비밃번호를 모두 입력해 주세요.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "ID와 비밀번호를 모두 입력해 주세요.", Toast.LENGTH_SHORT).show();
                 } else {
                     User loggedUser = userInfoDBManager.login(userDB, id, pw);
                     if (loggedUser == null) {
                         Toast.makeText(getApplicationContext(), "ID와 비밀번호를 확인해 주세요.", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_SHORT).show();
                         updateLoginInfo(loggedUser.getId(), loggedUser.getPw());
 
                         Intent intent = new Intent(getApplicationContext(), ProductManagementActivity.class);
@@ -119,7 +118,6 @@ public class MainActivity extends ActivityWithDB {
         guestLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "게스트 로그인 성공", Toast.LENGTH_SHORT).show();
                 updateLoginInfo("", "");
 
                 Intent intent = new Intent(getApplicationContext(), ProductManagementActivity.class);

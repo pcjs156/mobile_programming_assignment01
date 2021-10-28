@@ -1,6 +1,7 @@
 package com.example.assignment01;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -8,6 +9,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -47,6 +49,7 @@ public class ProductManagementActivity extends ActivityWithDB {
 
     public static boolean deleteMode = false;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,8 +61,13 @@ public class ProductManagementActivity extends ActivityWithDB {
         Intent intentFromMainActivity = getIntent();
         initializeUserInfo(intentFromMainActivity);
         isGuest = intentFromMainActivity.getBooleanExtra("isGuest", false);
+
+        if (!isGuest) {
+            userInfoBtn.setText(loggedUser.getId());
+        }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void initializeComponents() {
         productContainer = (ListView) findViewById(R.id.productContainer);
@@ -101,6 +109,9 @@ public class ProductManagementActivity extends ActivityWithDB {
                     dialog.show();
                 } else {
                     deleteMode = true;
+
+                    Toast.makeText(getApplicationContext(), "삭제할 제품을 탭 해주세요.", Toast.LENGTH_SHORT).show();
+
                     normalModeBottomBtnContainer.setVisibility(View.INVISIBLE);
                     deleteModeBottomBtnContainer.setVisibility(View.VISIBLE);
                 }
@@ -200,13 +211,12 @@ public class ProductManagementActivity extends ActivityWithDB {
 
         if (isGuest) {
             loggedUser = null;
-            Toast.makeText(getApplicationContext(), "게스트 로그인", Toast.LENGTH_SHORT).show();
         } else {
             loggedUser = intentFromMainActivity.getParcelableExtra("user");
-            Toast.makeText(getApplicationContext(), loggedUser.getId(), Toast.LENGTH_SHORT).show();
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void initializeProductContainer() {
         createInitialProducts();
 
@@ -280,7 +290,7 @@ public class ProductManagementActivity extends ActivityWithDB {
 
                 Toast.makeText(getApplicationContext(), "제품 추가가 완료되었습니다.", Toast.LENGTH_SHORT).show();
             } else if (requestCode == RESULT_CANCELED) {
-                Toast.makeText(getApplicationContext(), "제품 추가를 취소하셨습니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "제품 추가가 취소되었습니다.", Toast.LENGTH_SHORT).show();
             }
         }
     }
